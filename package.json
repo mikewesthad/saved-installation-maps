@@ -1,0 +1,18 @@
+{
+  "name": "p5-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "prettier": {
+    "printWidth": 100
+  },
+  "dependencies": {
+    "p5": "^0.7.2",
+    "parcel": "^1.10.3"
+  }
+}
