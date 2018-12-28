@@ -1,4 +1,5 @@
-export default `Object Name	LG	Start cM	Stop cM	Object Type
+export default `
+Object Name	LG	Start cM	Stop cM	Object Type
 Acid detergent fiber, R6 1-1	L	71.18	89.22	QTL_other-seed
 Acid detergent fiber, R6 1-2	F	118.26	146.57	QTL_other-seed
 Acid phosphatase activity, variable P 1-1	K	54.00	56.50	QTL_whole-plant
@@ -4362,4 +4363,5 @@ shoot weight, dry 1-3	N	38.07	52.57	QTL_whole-plant
 shoot weight, fresh 1-1	A2	36.77	48.87	QTL_whole-plant
 shoot weight, fresh 1-2	C2	24.06	60.66	QTL_whole-plant
 shoot weight, fresh 1-3	D1a	43.84	55.44	QTL_whole-plant
-shoot weight, fresh 1-4	N	38.07	51.07	QTL_whole-plant`
+shoot weight, fresh 1-4	N	38.07	51.07	QTL_whole-plant
+`.trim();
