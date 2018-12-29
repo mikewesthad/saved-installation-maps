@@ -3,7 +3,6 @@ import "p5/lib/addons/p5.dom";
 import fontPath from "./fonts/Inconsolata-Bold.ttf";
 import parseData, { findMinMaxMap } from "./data/parse-data";
 import a1LinkageData from "./data/SoyBase-GmComposite2003_A1_All_QTL_0-9999.js";
-import allLinkageData from "./data/SoyBase-GmComposite2003_ALL_LG_All_QTL_0-9999";
 import selectedTraits from "./data/selected-traits";
 import seedImagePath from "./images/webcam-processed.png";
 import chromosomeMaskImagePath from "./images/chromosome-mask.png";
