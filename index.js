@@ -30,12 +30,16 @@ new p5(function(p) {
   };
 
   p.setup = function() {
-    const s = Math.min(window.innerWidth / 1080, window.innerHeight / 1080);
-    mainCanvas = p.createCanvas(1080 * s, 1080 * s);
+    // Scale to fit target aspect ratio of 1920 x 1080
+    const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    mainCanvas = p.createCanvas(1920 * s, 1080 * s);
+
     topCanvas = p.createGraphics(p.width, p.height);
 
-    const saveButton = p.createButton("Saves");
-    saveButton.position(10, 10);
+    const saveButton = p.createButton("Save Screenshot");
+    saveButton.style("position: absolute");
+    saveButton.style("bottom: 10px");
+    saveButton.style("left: 10px");
     saveButton.mousePressed(() => p.saveCanvas(mainCanvas, "screenshot", "png"));
 
     p.colorMode(p.HSL, 360, 100, 100, 1);
