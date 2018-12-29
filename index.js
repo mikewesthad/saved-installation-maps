@@ -164,3 +164,6 @@ new p5(function(p) {
   //   p.saveCanvas(mainCanvas, "myCanvas", "png");
   // };
 });
+
+// Only needed to force a page refresh with Parcel's hot module replacement
+if (module.hot) module.hot.dispose(() => window.location.reload());
