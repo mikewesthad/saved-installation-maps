@@ -12,6 +12,7 @@
     "printWidth": 100
   },
   "dependencies": {
+    "chroma-js": "^2.0.2",
     "p5": "^0.7.2",
     "parcel": "^1.10.3"
   }

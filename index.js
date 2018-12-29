@@ -1,5 +1,6 @@
 import p5 from "p5";
 import "p5/lib/addons/p5.dom";
+import chroma from "chroma-js";
 import fontPath from "./fonts/Inconsolata-Bold.ttf";
 import parseData, { findMinMaxMap } from "./data/parse-data";
 import a1LinkageData from "./data/SoyBase-GmComposite2003_A1_All_QTL_0-9999.js";
@@ -9,6 +10,7 @@ import chromosomeMaskImagePath from "./images/chromosome-mask.png";
 
 const { labels, data, objectTypes, linkageGroups } = parseData(a1LinkageData);
 const colors = ["#BC4A31", "#E8AC22", "#6BA2D6"];
+const hslColors = colors.map(c => chroma(c).hsl()); // Array [hue 0 - 360, sat 0 - 1, light 0 - 1]
 
 const { min: minCm, max: maxCm } = findMinMaxMap(data);
 const cmDistance = maxCm - minCm;
@@ -20,8 +22,26 @@ new p5(function(p) {
   let topCanvas;
   let font;
   let seedImage;
-  let hslColors;
   let maskImage;
+
+  function drawTrait(surface, cx, cy, start, stop, diameter, hslColor, isHighlighted) {
+    const [h, s, l] = hslColor;
+    const alpha = isHighlighted ? 1 : 0.7;
+    const startAngle = getCmPercent(start) * p.TWO_PI;
+    const endAngle = getCmPercent(stop) * p.TWO_PI;
+
+    // White "stroke" arc
+    surface.noFill();
+    surface.stroke(255, alpha);
+    surface.strokeWeight(scale * (isHighlighted ? 38 : 16));
+    surface.arc(cx, cy, diameter, diameter, startAngle, endAngle);
+    surface;
+
+    // Color "fill" arc
+    surface.stroke(h, s, l, alpha);
+    surface.strokeWeight(scale * (isHighlighted ? 30 : 12));
+    surface.arc(cx, cy, diameter, diameter, startAngle, endAngle);
+  }
 
   p.preload = () => {
     font = p.loadFont(fontPath);
@@ -42,36 +62,23 @@ new p5(function(p) {
     saveButton.style("left: 10px");
     saveButton.mousePressed(() => p.saveCanvas(mainCanvas, "screenshot", "png"));
 
-    p.colorMode(p.HSL, 360, 100, 100, 1);
+    p.colorMode(p.HSL, 360, 1, 1, 1);
     p.textFont(font);
-    p.textSize(35);
-    topCanvas.colorMode(p.HSL, 360, 100, 100, 1);
+    topCanvas.colorMode(p.HSL, 360, 1, 1, 1);
     topCanvas.textFont(font);
-    topCanvas.textSize(scale * 35);
-
-    hslColors = colors.map(c => {
-      const pColor = p.color(c);
-      const hslString = pColor.toString("hsl"); // Format is hsl(...)
-      const [h, s, l] = hslString
-        .slice(4, hslString.length - 1) // Trim away "hsl(" and ")"
-        .split(",")
-        .map(parseFloat);
-      return [h, s, l];
-    });
   };
 
   p.draw = function() {
     p.background(255);
     topCanvas.clear();
 
-    const offset = p.millis() / 5000;
-    const objectNameIndex = Math.floor((p.millis() / 4000) % selectedTraits.length);
+    const traitDurationMs = 4000;
+    const objectNameIndex = Math.floor((p.millis() / traitDurationMs) % selectedTraits.length);
     const highlightedIndex = data.findIndex(d => d.objectName === selectedTraits[objectNameIndex]);
-    // let highlightedIndex = Math.floor((p.millis() / 1000) % data.length);
 
     const x = p.width / 2;
     const y = p.height / 2;
-    const maxSize = 1 * Math.min(p.width, p.height);
+    const maxSize = Math.min(p.width, p.height);
     const startRadius = 250 * scale;
 
     p.imageMode(p.CENTER);
@@ -88,41 +95,10 @@ new p5(function(p) {
         if (colorIndex > hslColors.length - 1) colorIndex = 0;
       }
 
-      const startAngle = getCmPercent(start) * p.TWO_PI;
-      const endAngle = getCmPercent(stop) * p.TWO_PI;
-      const midAngle = startAngle + (endAngle - startAngle) / 2;
       const d = p.map(i, 0, numTraits, startRadius, maxSize * 0.9);
       const isHighlighted = i === highlightedIndex;
-
-      // const hue = p.map(objectTypes.indexOf(objectType), 0, objectTypes.length - 1, 192, 353);
-      // const lightness = isHighlighted ? 60 : 40;
-      // const alpha = isHighlighted ? 1 : 0.6;
-      // const color = p.color(hue, 100, lightness, alpha);
-
-      const [h, s, l] = hslColors[colorIndex];
-      const color = p.color(h, s, l, alpha);
-
-      const target = isHighlighted ? topCanvas : p;
-      // White "stroke" arc
-      target.noFill();
-      target.stroke(255, alpha);
-      target.strokeWeight(scale * (isHighlighted ? 38 : 16));
-      target.arc(x, y, d, d, startAngle, endAngle);
-      // Color "fill" arc
-      target.stroke(color);
-      target.strokeWeight(scale * (isHighlighted ? 30 : 12));
-      target.arc(x, y, d, d, startAngle, endAngle);
-
-      // if (isHighlighted) {
-      //   const textX = maxSize * 0.4 * Math.cos(midAngle) + x;
-      //   const textY = maxSize * 0.4 * Math.sin(midAngle) + y;
-
-      //   topCanvas.textAlign(p.CENTER, p.CENTER);
-      //   topCanvas.fill(0);
-      //   topCanvas.stroke(255);
-      //   topCanvas.strokeWeight(scale * 3);
-      //   topCanvas.text(objectName, textX, textY);
-      // }
+      const surface = isHighlighted ? topCanvas : p;
+      drawTrait(surface, x, y, start, stop, d, hslColors[colorIndex], isHighlighted);
 
       lastObjectName = objectName;
     });
