@@ -9,9 +9,25 @@ import seedImagePath from "../images/usb-scope-processed.png";
 import chromosomeMaskImagePath from "../images/chromosome-mask.png";
 
 const palette = {
+  brown: chroma("#C7C1C1"),
+  orange: chroma("#D95336"),
+  yellow: chroma("#E8AC22"),
+  blue: chroma("#6EA8DD")
+};
+const selectedColors = [palette.orange, palette.yellow, palette.blue];
 const { labels, data, objectTypes, linkageGroups } = parseData(a1LinkageData);
-const colors = ["#BC4A31", "#E8AC22", "#6BA2D6"];
-const hslColors = colors.map(c => chroma(c).hsl()); // Array [hue 0 - 360, sat 0 - 1, light 0 - 1]
+
+// Assign colors to the traits
+data.forEach(obj => {
+  const { objectName, objectType, start, stop } = obj;
+  const i = selectedTraits.indexOf(objectName);
+  if (i === -1) obj.color = palette.brown;
+  else obj.color = selectedColors[i % selectedColors.length];
+});
+
+// Split data based on whether it's a trait we want to highlight
+const selectedTraitData = data.filter(obj => selectedTraits.includes(obj.objectName));
+const notSelectedTraitData = data.filter(obj => !selectedTraits.includes(obj.objectName));
 
 const { min: minCm, max: maxCm } = findMinMaxMap(data);
 const cmDistance = maxCm - minCm;
@@ -25,9 +41,9 @@ new p5(function(p) {
   let seedImage;
   let maskImage;
 
-  function drawTrait(surface, cx, cy, start, stop, diameter, hslColor, isHighlighted) {
-    const [h, s, l] = hslColor;
-    const alpha = isHighlighted ? 1 : 0.7;
+  function drawTrait(surface, cx, cy, start, stop, diameter, chromaColor, isHighlighted) {
+    const [h, s, l] = chromaColor.hsl();
+    const alpha = 1;
     const startAngle = getCmPercent(start) * p.TWO_PI;
     const endAngle = getCmPercent(stop) * p.TWO_PI;
 
@@ -85,53 +101,47 @@ new p5(function(p) {
     p.image(seedImage, x, y, startRadius, startRadius);
     p.imageMode(p.CORNER);
 
-    const numTraits = data.length - 1;
-    let colorIndex = 0;
-    let lastObjectName = data[0].objectName;
-
-    data.forEach(({ objectName, objectType, start, stop }, i) => {
-      if (objectName !== lastObjectName) {
-        colorIndex += 1;
-        if (colorIndex > hslColors.length - 1) colorIndex = 0;
-      }
-
-      const d = p.map(i, 0, numTraits, startRadius, maxSize * 0.9);
-      const isHighlighted = i === highlightedIndex;
+    notSelectedTraitData.forEach(({ start, stop, color }, i) => {
+      const d = p.map(i, 0, notSelectedTraitData.length, startRadius, maxSize * 0.9);
+      const isHighlighted = false;
       const surface = isHighlighted ? topCanvas : p;
-      drawTrait(surface, x, y, start, stop, d, hslColors[colorIndex], isHighlighted);
-
-      lastObjectName = objectName;
+      drawTrait(surface, x, y, start, stop, d, color, isHighlighted);
     });
 
-    const { objectName, objectType, start, stop } = data[highlightedIndex];
-    const hue = p.map(objectTypes.indexOf(objectType), 0, objectTypes.length - 1, 192, 353);
-    const lightness = 60;
-    const alpha = 1;
-    const color = p.color(hue, 100, lightness, alpha);
+    selectedTraitData.forEach(({ start, stop, color }, i) => {
+      const d = p.map(i, 0, selectedTraitData.length, startRadius, maxSize * 0.9);
+      const isHighlighted = i === highlightedIndex;
+      const surface = isHighlighted ? topCanvas : p;
+      drawTrait(surface, x, y, start, stop, d, color, isHighlighted);
+    });
+
+    const { objectName, objectType, start, stop, color } = data[highlightedIndex];
     const startPercent = getCmPercent(start);
     const midPercent = getCmPercent((stop - start) / 2 + start);
     const stopPercent = getCmPercent(stop);
-    const w = 20;
-    const h = 250;
+    const w = 30;
+    const h = 254;
     topCanvas.noStroke();
-    topCanvas.fill("#63544F");
-    topCanvas.rect(10, 10, w, startPercent * h);
-    topCanvas.fill(color);
-    topCanvas.rect(10, 10 + startPercent * h, w, (stopPercent - startPercent) * h);
-    topCanvas.fill(0);
-    topCanvas.rect(10, 10 + stopPercent * h, w, (1 - stopPercent) * h);
+    topCanvas.fill(palette.brown.hsl());
+    topCanvas.rect(10, 10, w, h);
+    topCanvas.fill(color.hsl());
+    topCanvas.stroke(0);
+    topCanvas.strokeWeight(1);
+    topCanvas.rect(10, 10 + startPercent * h, w - 2, (stopPercent - startPercent) * h);
 
     topCanvas.textAlign(p.LEFT, p.TOP);
-    topCanvas.fill(0);
+    topCanvas.fill(palette.brown.hsl());
     topCanvas.stroke(255);
     topCanvas.textSize(scale * 20);
     topCanvas.strokeWeight(scale * 3);
-    topCanvas.text(objectName, 70, 10);
+    topCanvas.fill(0);
+    topCanvas.text(objectName, 90, 10);
 
     topCanvas.stroke(0);
-    topCanvas.line(20 + w, 10 + midPercent * h, 60, 25);
+    topCanvas.strokeWeight(2);
+    topCanvas.line(20 + w, 10 + midPercent * h, 80, 25);
 
-    topCanvas.image(maskImage, 10, 10);
+    topCanvas.image(maskImage, 10, 10, w, h);
 
     p.image(topCanvas, 0, 0);
   };
