@@ -1,4 +1,5 @@
 import p5 from "p5";
+import "p5/lib/addons/p5.dom";
 import fontPath from "./fonts/Inconsolata-Bold.ttf";
 import parseData, { findMinMaxMap } from "./data/parse-data";
 import a1LinkageData from "./data/SoyBase-GmComposite2003_A1_All_QTL_0-9999.js";
@@ -33,6 +34,10 @@ new p5(function(p) {
     const s = Math.min(window.innerWidth / 1080, window.innerHeight / 1080);
     mainCanvas = p.createCanvas(1080 * s, 1080 * s);
     topCanvas = p.createGraphics(p.width, p.height);
+
+    const saveButton = p.createButton("Saves");
+    saveButton.position(10, 10);
+    saveButton.mousePressed(() => p.saveCanvas(mainCanvas, "screenshot", "png"));
 
     p.colorMode(p.HSL, 360, 100, 100, 1);
     p.textFont(font);
@@ -151,10 +156,6 @@ new p5(function(p) {
 
     p.image(topCanvas, 0, 0);
   };
-
-  // p.mousePressed = () => {
-  //   p.saveCanvas(mainCanvas, "myCanvas", "png");
-  // };
 });
 
 // Only needed to force a page refresh with Parcel's hot module replacement
