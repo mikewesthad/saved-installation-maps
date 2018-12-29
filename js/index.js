@@ -1,12 +1,12 @@
 import p5 from "p5";
 import "p5/lib/addons/p5.dom";
 import chroma from "chroma-js";
-import fontPath from "./fonts/Inconsolata-Bold.ttf";
-import parseData, { findMinMaxMap } from "./data/parse-data";
-import a1LinkageData from "./data/SoyBase-GmComposite2003_A1_All_QTL_0-9999.js";
-import selectedTraits from "./data/selected-traits";
-import seedImagePath from "./images/webcam-processed.png";
-import chromosomeMaskImagePath from "./images/chromosome-mask.png";
+import fontPath from "../fonts/Inconsolata-Bold.ttf";
+import parseData, { findMinMaxMap } from "../data/parse-data";
+import a1LinkageData from "../data/SoyBase-GmComposite2003_A1_All_QTL_0-9999.js";
+import selectedTraits from "../data/selected-traits";
+import seedImagePath from "../images/webcam-processed.png";
+import chromosomeMaskImagePath from "../images/chromosome-mask.png";
 
 const { labels, data, objectTypes, linkageGroups } = parseData(a1LinkageData);
 const colors = ["#BC4A31", "#E8AC22", "#6BA2D6"];
@@ -35,7 +35,6 @@ new p5(function(p) {
     surface.stroke(255, alpha);
     surface.strokeWeight(scale * (isHighlighted ? 38 : 16));
     surface.arc(cx, cy, diameter, diameter, startAngle, endAngle);
-    surface;
 
     // Color "fill" arc
     surface.stroke(h, s, l, alpha);
