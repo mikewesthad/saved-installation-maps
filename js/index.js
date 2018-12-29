@@ -8,6 +8,7 @@ import selectedTraits from "../data/selected-traits";
 import seedImagePath from "../images/usb-scope-processed.png";
 import chromosomeMaskImagePath from "../images/chromosome-mask.png";
 
+const palette = {
 const { labels, data, objectTypes, linkageGroups } = parseData(a1LinkageData);
 const colors = ["#BC4A31", "#E8AC22", "#6BA2D6"];
 const hslColors = colors.map(c => chroma(c).hsl()); // Array [hue 0 - 360, sat 0 - 1, light 0 - 1]
