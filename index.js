@@ -8,14 +8,6 @@ import seedImagePath from "./images/webcam-processed.png";
 import chromosomeMaskImagePath from "./images/chromosome-mask.png";
 
 const { labels, data, objectTypes, linkageGroups } = parseData(a1LinkageData);
-
-// const colors = ["#ee4035", "#f37736", "#fdf498", "#7bc043", "#0392cf"];
-// const colors = ["#a8e6cf", "#dcedc1", "#ffd3b6", "#ffaaa5", "#ff8b94"];
-// const colors = ["#d11141", "#00b159", "#00aedb", "#f37735", "#ffc425"];
-// const colors = ["#3D2564", "#325292", "#78C848", "#FFB200", "#F27242", "#AA361A"];
-// const colors = ["#5fa55a", "#01b4bc", "#f6d51f", "#fa8925", "#fa5457"];
-// const colors = ["#328299", "#79C6A6", "#E5DD47", "#EAA000", "#C6640D", "#B20C5C"];
-// const colors = ["#40A8C4", "#88DFBB", "#ECE34A", "#F7AA00", "#F07810", "#C50D66"];
 const colors = ["#BC4A31", "#E8AC22", "#6BA2D6"];
 
 const { min: minCm, max: maxCm } = findMinMaxMap(data);
