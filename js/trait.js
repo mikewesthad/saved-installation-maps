@@ -1,5 +1,17 @@
+import { TweenLite, TimelineMax } from "gsap";
+
 export class Trait {
-  constructor(p, name, diameter, startAngle, stopAngle, color, isSelected, isHighlighted = false) {
+  constructor(
+    p,
+    name,
+    diameter,
+    size,
+    startAngle,
+    stopAngle,
+    color,
+    isSelected,
+    isHighlighted = false
+  ) {
     this.p = p;
     this.name = name;
     this.diameter = diameter;
@@ -9,21 +21,39 @@ export class Trait {
     this.startAngle = startAngle;
     this.stopAngle = stopAngle;
 
-    const [h, s, l] = color.hsl();
+    this.strokeColor = this.color
+      .darken(1.5)
+      .hsl()
+      .slice(0, 3);
+
+    const [h, s, l] = color.brighten(0.5).hsl();
     this.h = h;
     this.s = s;
     this.l = l;
-    this.a = 1;
+    this.alpha = { min: 0.7, max: 1, value: 0.7 };
 
-    this.size = 16;
+    this.size = { min: size, max: size * 2.2, value: size };
 
     this.zIndex = 0;
     this.updateZIndex();
   }
 
   setHighlighted(isHighlighted) {
+    if (isHighlighted === this.isHighlighted) return;
+
     this.isHighlighted = isHighlighted;
     this.updateZIndex();
+
+    if (this.timeline) this.timeline.kill();
+    if (this.isHighlighted) {
+      this.timeline = new TimelineMax();
+      this.timeline.to(this.size, 0.25, { value: this.size.max });
+      this.timeline.to(this.alpha, 0.1, { value: this.alpha.max }, 0);
+    } else {
+      this.timeline = new TimelineMax();
+      this.timeline.to(this.size, 0.25, { value: this.size.min });
+      this.timeline.to(this.alpha, 0.1, { value: this.alpha.min }, 0);
+    }
   }
 
   updateZIndex() {
@@ -33,7 +63,7 @@ export class Trait {
   }
 
   draw() {
-    const { p, h, s, l, a, isHighlighted, diameter, startAngle, stopAngle } = this;
+    const { p, h, s, l, alpha, diameter, startAngle, stopAngle, size, strokeColor } = this;
     const cx = p.width / 2;
     const cy = p.height / 2;
 
@@ -41,16 +71,16 @@ export class Trait {
     const a1 = 2 * Math.PI - stopAngle;
     const a2 = 2 * Math.PI - startAngle;
 
-    // White "stroke" arc
+    // Darker "stroke" for the arc
     p.noFill();
-    p.stroke(255, a);
-    p.strokeWeight(isHighlighted ? 38 : 16);
+    p.stroke(...strokeColor, alpha.value);
+    p.strokeWeight(size.value * 1.2);
     p.arc(cx, cy, diameter, diameter, a1, a2);
 
     // Color "fill" arc
     p.noFill();
-    p.stroke(h, s, l, a);
-    p.strokeWeight(isHighlighted ? 30 : 12);
+    p.stroke(h, s, l, alpha.value);
+    p.strokeWeight(size.value);
     p.arc(cx, cy, diameter, diameter, a1, a2);
   }
 }

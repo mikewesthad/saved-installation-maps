@@ -20,7 +20,6 @@ selectedTraits.sort((a, b) => {
 const { min: minCm, max: maxCm } = findMinMaxMap(data);
 const cmDistance = maxCm - minCm;
 const getCmPercent = cm => (cm - minCm) / cmDistance;
-
 const scale = 1.1;
 
 new p5(function(p) {
@@ -61,18 +60,31 @@ new p5(function(p) {
       const diameter = p.map(i, 0, data.length, startRadius, maxSize * 0.9);
       if (isSelected) {
         const color = traitColors[indexInSelected % traitColors.length];
-        return new Trait(p, objectName, diameter, startAngle, stopAngle, color, isSelected, false);
-      } else {
         return new Trait(
           p,
           objectName,
           diameter,
+          16,
+          startAngle,
+          stopAngle,
+          color,
+          isSelected,
+          false
+        );
+      } else {
+        const trait = new Trait(
+          p,
+          objectName,
+          diameter,
+          10,
           startAngle,
           stopAngle,
           palette.brown,
           isSelected,
           false
         );
+        trait.l += p.random(-0.05, 0.05);
+        return trait;
       }
     });
   };
@@ -86,9 +98,10 @@ new p5(function(p) {
 
     p.background(255);
 
+    p.push();
     p.imageMode(p.CENTER);
     p.image(seedImage, x, y, startRadius, startRadius);
-    p.imageMode(p.CORNER);
+    p.pop();
 
     traits.forEach(t => t.setHighlighted(t.name === highlightedName));
     traits.sort((a, b) => a.zIndex - b.zIndex);
