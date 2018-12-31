@@ -1,23 +1,12 @@
 import { TweenLite, TimelineMax } from "gsap";
 
 export class Trait {
-  constructor(
-    p,
-    name,
-    diameter,
-    size,
-    startAngle,
-    stopAngle,
-    color,
-    isSelected,
-    isHighlighted = false
-  ) {
+  constructor(p, name, diameter, size, startAngle, stopAngle, color) {
     this.p = p;
     this.name = name;
     this.diameter = diameter;
     this.color = color;
-    this.isSelected = isSelected;
-    this.isHighlighted = isHighlighted;
+    this.isHighlighted = false;
     this.startAngle = startAngle;
     this.stopAngle = stopAngle;
 
@@ -35,14 +24,12 @@ export class Trait {
     this.size = { min: size, max: size * 2.2, value: size };
 
     this.zIndex = 0;
-    this.updateZIndex();
   }
 
   setHighlighted(isHighlighted) {
     if (isHighlighted === this.isHighlighted) return;
 
     this.isHighlighted = isHighlighted;
-    this.updateZIndex();
 
     if (this.timeline) this.timeline.kill();
     if (this.isHighlighted) {
@@ -56,10 +43,8 @@ export class Trait {
     }
   }
 
-  updateZIndex() {
-    if (this.isHighlighted) this.zIndex = 2;
-    else if (this.isSelected) this.zIndex = 1;
-    else this.zIndex = 0;
+  setZIndex(zIndex) {
+    this.zIndex = zIndex;
   }
 
   draw() {

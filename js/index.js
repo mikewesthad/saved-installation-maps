@@ -60,29 +60,12 @@ new p5(function(p) {
       const diameter = p.map(i, 0, data.length, startRadius, maxSize * 0.9);
       if (isSelected) {
         const color = traitColors[indexInSelected % traitColors.length];
-        return new Trait(
-          p,
-          objectName,
-          diameter,
-          16,
-          startAngle,
-          stopAngle,
-          color,
-          isSelected,
-          false
-        );
+        const trait = new Trait(p, objectName, diameter, 16, startAngle, stopAngle, color);
+        trait.setZIndex(1);
+        return trait;
       } else {
-        const trait = new Trait(
-          p,
-          objectName,
-          diameter,
-          10,
-          startAngle,
-          stopAngle,
-          palette.brown,
-          isSelected,
-          false
-        );
+        const trait = new Trait(p, objectName, diameter, 10, startAngle, stopAngle, palette.brown);
+        trait.setZIndex(0);
         trait.l += p.random(-0.05, 0.05);
         return trait;
       }
@@ -103,7 +86,15 @@ new p5(function(p) {
     p.image(seedImage, x, y, startRadius, startRadius);
     p.pop();
 
-    traits.forEach(t => t.setHighlighted(t.name === highlightedName));
+    traits.forEach(t => {
+      if (t.name === highlightedName && !t.isHighlighted) {
+        t.setHighlighted(true);
+        t.setZIndex(2);
+      } else if (t.name !== highlightedName && t.isHighlighted) {
+        t.setHighlighted(false);
+        t.setZIndex(1);
+      }
+    });
     traits.sort((a, b) => a.zIndex - b.zIndex);
     traits.forEach(t => t.draw());
 
