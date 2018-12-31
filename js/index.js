@@ -12,6 +12,11 @@ import { ChromosomeMiniMap } from "./chromosome-minimap";
 const traitColors = [palette.orange, palette.yellow, palette.blue];
 const { labels, data, objectTypes, linkageGroups } = parseData(a1LinkageData);
 
+// Sort based on midpoint of the trait from lowest to highest cM
+selectedTraits.sort((a, b) => {
+  return data.find(d => d.objectName === a).mid - data.find(d => d.objectName === b).mid;
+});
+
 const { min: minCm, max: maxCm } = findMinMaxMap(data);
 const cmDistance = maxCm - minCm;
 const getCmPercent = cm => (cm - minCm) / cmDistance;

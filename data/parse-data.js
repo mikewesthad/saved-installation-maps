@@ -6,13 +6,19 @@ export default function parseData(tsvData) {
 
   let [labels, ...originalData] = table;
 
-  const data = originalData.map(([objectName, linkageGroup, start, stop, objectType]) => ({
-    objectName,
-    linkageGroup,
-    start: parseFloat(start),
-    stop: parseFloat(stop),
-    objectType
-  }));
+  const data = originalData.map(([objectName, linkageGroup, start, stop, objectType]) => {
+    const fStart = parseFloat(start);
+    const fStop = parseFloat(stop);
+    const mid = (fStart + fStop) / 2;
+    return {
+      objectName,
+      linkageGroup,
+      start: fStart,
+      stop: fStop,
+      mid,
+      objectType
+    };
+  });
 
   const objectTypes = [];
   const linkageGroups = [];
