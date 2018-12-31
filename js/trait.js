@@ -41,10 +41,12 @@ export class Trait {
       this.timeline.to(this.size, 0.25, { value: this.size.min });
       this.timeline.to(this.alpha, 0.1, { value: this.alpha.min }, 0);
     }
+    return this;
   }
 
   setZIndex(zIndex) {
     this.zIndex = zIndex;
+    return this;
   }
 
   draw() {

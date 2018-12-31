@@ -30,6 +30,8 @@ new p5(function(p) {
   const startRadius = 250 * scale;
   const traitDurationMs = 4000;
   const chromosomeMiniMap = new ChromosomeMiniMap(p);
+  let highlightedTrait;
+  let lastHighlightedTrait;
 
   p.preload = () => {
     font = p.loadFont(fontPath);
@@ -69,6 +71,12 @@ new p5(function(p) {
   p.draw = function() {
     const objectNameIndex = Math.floor((p.millis() / traitDurationMs) % selectedTraits.length);
     const highlightedName = selectedTraits[objectNameIndex];
+    highlightedTrait = traits.find(t => t.name === highlightedName);
+
+    if (highlightedTrait !== lastHighlightedTrait) {
+      if (highlightedTrait) highlightedTrait.setHighlighted(true).setZIndex(2);
+      if (lastHighlightedTrait) lastHighlightedTrait.setHighlighted(false).setZIndex(1);
+    }
 
     const x = p.width / 2;
     const y = p.height / 2;
@@ -80,20 +88,13 @@ new p5(function(p) {
     p.image(seedImage, x, y, startRadius, startRadius);
     p.pop();
 
-    traits.forEach(t => {
-      if (t.name === highlightedName && !t.isHighlighted) {
-        t.setHighlighted(true);
-        t.setZIndex(2);
-      } else if (t.name !== highlightedName && t.isHighlighted) {
-        t.setHighlighted(false);
-        t.setZIndex(1);
-      }
-    });
     traits.sort((a, b) => a.zIndex - b.zIndex);
     traits.forEach(t => t.draw());
 
     chromosomeMiniMap.setTrait(traits.find(t => t.isHighlighted));
     chromosomeMiniMap.draw();
+
+    lastHighlightedTrait = highlightedTrait;
   };
 });
 
