@@ -53,13 +53,17 @@ new p5(function(p) {
       const startAngle = getCmPercent(start) * p.TWO_PI;
       const stopAngle = getCmPercent(stop) * p.TWO_PI;
       const maxSize = Math.min(p.width, p.height);
-      const diameter = p.map(i, 0, data.length, startRadius, maxSize * 0.9);
       let trait;
       if (isSelected) {
+        const v = (indexInSelected % 4) / 3;
+        const d1 = p.map(v, 0, 1, startRadius, maxSize * 0.9);
+        const d2 = p.map(v === 1 ? v - 0.3 : v + 0.3, 0, 1, startRadius, maxSize * 0.9);
+        const diameter = p.random(d1, d2);
         const color = traitColors[indexInSelected % traitColors.length];
         trait = new Trait(p, objectName, diameter, 16, startAngle, stopAngle, color);
         trait.setZIndex(1);
       } else {
+        const diameter = p.map(i, 0, data.length, startRadius, maxSize * 0.9);
         trait = new Trait(p, objectName, diameter, 10, startAngle, stopAngle, palette.brown);
         trait.setZIndex(0);
         trait.l += p.random(-0.05, 0.05);
