@@ -54,17 +54,17 @@ new p5(function(p) {
       const stopAngle = getCmPercent(stop) * p.TWO_PI;
       const maxSize = Math.min(p.width, p.height);
       const diameter = p.map(i, 0, data.length, startRadius, maxSize * 0.9);
+      let trait;
       if (isSelected) {
         const color = traitColors[indexInSelected % traitColors.length];
-        const trait = new Trait(p, objectName, diameter, 16, startAngle, stopAngle, color);
+        trait = new Trait(p, objectName, diameter, 16, startAngle, stopAngle, color);
         trait.setZIndex(1);
-        return trait;
       } else {
-        const trait = new Trait(p, objectName, diameter, 10, startAngle, stopAngle, palette.brown);
+        trait = new Trait(p, objectName, diameter, 10, startAngle, stopAngle, palette.brown);
         trait.setZIndex(0);
         trait.l += p.random(-0.05, 0.05);
-        return trait;
       }
+      return trait;
     });
   };
 
