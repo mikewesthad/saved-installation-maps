@@ -41,12 +41,6 @@ new p5(function(p) {
     const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
     mainCanvas = p.createCanvas(1920 * s, 1080 * s);
 
-    const saveButton = p.createButton("Save Screenshot");
-    saveButton.style("position: absolute");
-    saveButton.style("bottom: 10px");
-    saveButton.style("left: 10px");
-    saveButton.mousePressed(() => p.saveCanvas(mainCanvas, "screenshot", "png"));
-
     p.colorMode(p.HSL, 360, 1, 1, 1);
     p.textFont(font);
 
