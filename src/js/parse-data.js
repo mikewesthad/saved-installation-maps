@@ -1,16 +1,17 @@
+const splitLines = string => string.split(/\r?\n/);
+
 export function parseTsv(text) {
-  const table = text
-    .trim()
-    .split("\n")
-    .map(line => line.trim().split("\t"));
+  const table = splitLines(text.trim()).map(line => line.trim().split("\t"));
+  return table;
+}
+
+export function parseCsv(text) {
+  const table = splitLines(text.trim()).map(line => line.split(","));
   return table;
 }
 
 export function parseLines(text) {
-  const lines = text
-    .trim()
-    .split("\n")
-    .map(line => line.trim());
+  const lines = splitLines(text.trim()).map(line => line.trim());
   return lines;
 }
 
