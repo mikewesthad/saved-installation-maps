@@ -1,16 +1,17 @@
 import p5 from "p5";
 import "p5/lib/addons/p5.dom";
 import fontPath from "../fonts/Inconsolata-Bold.ttf";
-import parseData, { findMinMaxMap } from "../data/parse-data";
-import a1LinkageData from "../data/SoyBase-GmComposite2003_A1_All_QTL_0-9999.js";
-import selectedTraits from "../data/selected-traits";
+import { parseLines, parseSoybaseData, findMinMaxMap } from "./parse-data";
+import a1LinkageText from "../data/SoyBase-GmComposite2003_A1_All_QTL_0-9999.tsv";
+import selectedTraitsText from "../data/selected-traits.txt";
 import seedImagePath from "../images/usb-scope-processed.png";
 import palette from "./palette";
 import { Trait } from "./trait";
 import { ChromosomeMiniMap } from "./chromosome-minimap";
 
+const selectedTraits = parseLines(selectedTraitsText);
 const traitColors = [palette.orange, palette.yellow, palette.blue];
-const { labels, data, objectTypes, linkageGroups } = parseData(a1LinkageData);
+const { labels, data, objectTypes, linkageGroups } = parseSoybaseData(a1LinkageText);
 
 // Sort based on midpoint of the trait from lowest to highest cM
 selectedTraits.sort((a, b) => {

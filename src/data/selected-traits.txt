@@ -1,4 +1,3 @@
-export default `
 Drought index 1-7
 Drought index 1-8
 Drought tolerance 6-2
@@ -17,7 +16,3 @@ Seed yield 28-1
 Seed yield 32-1
 Whitefly resistance 1-4
 Whitefly resistance 1-5
-`
-  .trim()
-  .split("\n")
-  .map(line => line.trim());

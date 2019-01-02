@@ -11,7 +11,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.txt$/,
+        test: /\.(txt|csv|tsv)$/,
         use: "raw-loader"
       },
       {

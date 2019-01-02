@@ -1,8 +1,21 @@
-export default function parseData(tsvData) {
-  const table = tsvData
+export function parseTsv(text) {
+  const table = text
     .trim()
     .split("\n")
     .map(line => line.trim().split("\t"));
+  return table;
+}
+
+export function parseLines(text) {
+  const lines = text
+    .trim()
+    .split("\n")
+    .map(line => line.trim());
+  return lines;
+}
+
+export function parseSoybaseData(text) {
+  const table = parseTsv(text);
 
   let [labels, ...originalData] = table;
 
