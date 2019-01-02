@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel index.html"
+    "dev": "webpack-dev-server --mode=development --watch --open",
+    "build": "webpack --mode=production"
   },
   "author": "",
   "license": "ISC",
@@ -14,7 +15,15 @@
   "dependencies": {
     "chroma-js": "^2.0.2",
     "gsap": "^2.0.2",
-    "p5": "^0.7.2",
-    "parcel": "^1.10.3"
+    "p5": "^0.7.2"
+  },
+  "devDependencies": {
+    "file-loader": "^3.0.1",
+    "html-webpack-plugin": "^4.0.0-beta.5",
+    "prettier": "^1.15.3",
+    "raw-loader": "^1.0.0",
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.14"
   }
 }
