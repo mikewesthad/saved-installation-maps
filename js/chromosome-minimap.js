@@ -1,4 +1,3 @@
-import chromosomeMaskImagePath from "../images/chromosome-mask.png";
 import palette from "./palette";
 
 // Path from images/chromosome.svg
