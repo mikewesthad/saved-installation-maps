@@ -7,7 +7,7 @@ import selectedTraitsText from "../data/selected-traits.txt";
 import seedImagePath from "../images/usb-scope-processed.png";
 import palette from "./palette";
 import Trait from "./trait";
-import ChromosomeLegend from "./chromosome-minimap";
+import ChromosomeLegend from "./chromosome-legend";
 
 const selectedTraits = parseLines(selectedTraitsText);
 const traitColors = [palette.orange, palette.yellow, palette.blue];
