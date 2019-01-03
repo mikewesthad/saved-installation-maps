@@ -1,6 +1,6 @@
 import { TweenLite, TimelineMax } from "gsap";
 
-export class Trait {
+export default class Trait {
   constructor(p, name, diameter, size, startAngle, stopAngle, color) {
     this.p = p;
     this.name = name;
