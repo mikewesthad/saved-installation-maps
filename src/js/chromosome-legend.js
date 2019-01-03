@@ -11,12 +11,17 @@ export default class ChromosomeLegend {
     this.trait = null;
     this.w = 30;
     this.h = 254;
-    this.x = 50;
-    this.y = 50;
+    this.x = 0;
+    this.y = 0;
   }
 
   setTrait(trait) {
     this.trait = trait;
+  }
+
+  setPosition(x, y) {
+    this.x = x;
+    this.y = y;
   }
 
   draw() {
@@ -24,7 +29,7 @@ export default class ChromosomeLegend {
 
     p.push();
     p.translate(x, y);
-    p.scale(1.3);
+    p.scale(1.4);
     p.noStroke();
     p.fill(palette.brown.hsl());
     p.drawingContext.fill(chromosomePath);
@@ -46,7 +51,7 @@ export default class ChromosomeLegend {
       p.noStroke();
       p.fill(0);
       p.textSize(23);
-      p.text(name, w + 45, 20, 300);
+      p.text(name, w + 45, 20);
 
       p.stroke(0);
       p.strokeWeight(2);

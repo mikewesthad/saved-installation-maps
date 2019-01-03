@@ -63,17 +63,18 @@ new p5(function(p) {
       const startAngle = getCmPercent(start) * p.TWO_PI;
       const stopAngle = getCmPercent(stop) * p.TWO_PI;
       const maxSize = Math.min(p.width, p.height);
+      const maxDiameter = maxSize * 0.95;
       let trait;
       if (isSelected) {
         const v = (indexInSelected % 4) / 3;
-        const d1 = p.map(v, 0, 1, startRadius, maxSize * 0.9);
-        const d2 = p.map(v === 1 ? v - 0.3 : v + 0.3, 0, 1, startRadius, maxSize * 0.9);
+        const d1 = p.map(v, 0, 1, startRadius, maxDiameter);
+        const d2 = p.map(v === 1 ? v - 0.3 : v + 0.3, 0, 1, startRadius, maxDiameter);
         const diameter = p.random(d1, d2);
         const color = traitColors[indexInSelected % traitColors.length];
         trait = new Trait(p, objectName, diameter, 16, startAngle, stopAngle, color);
         trait.setZIndex(1);
       } else {
-        const diameter = p.map(i, 0, data.length, startRadius, maxSize * 0.9);
+        const diameter = p.map(i, 0, data.length, startRadius, maxDiameter);
         trait = new Trait(p, objectName, diameter, 10, startAngle, stopAngle, palette.brown);
         trait.setZIndex(0);
         trait.l += p.random(-0.05, 0.05);
@@ -92,20 +93,24 @@ new p5(function(p) {
       if (lastHighlightedTrait) lastHighlightedTrait.setHighlighted(false).setZIndex(1);
     }
 
-    const x = p.width / 2;
-    const y = p.height / 2;
+    const mapCenterX = 0.65 * p.width;
+    const mapCenterY = p.height / 2;
 
     p.background(255);
 
     p.push();
     p.imageMode(p.CENTER);
-    p.image(seedImage, x, y, startRadius, startRadius);
+    p.image(seedImage, mapCenterX, mapCenterY, startRadius, startRadius);
     p.pop();
 
     traits.sort((a, b) => a.zIndex - b.zIndex);
-    traits.forEach(t => t.draw());
+    traits.forEach(t => {
+      t.setCenter(mapCenterX, mapCenterY);
+      t.draw();
+    });
 
     chromosomeLegend.setTrait(traits.find(t => t.isHighlighted));
+    chromosomeLegend.setPosition(p.width * 0.075, p.height * 0.03);
     chromosomeLegend.draw();
 
     lastHighlightedTrait = highlightedTrait;

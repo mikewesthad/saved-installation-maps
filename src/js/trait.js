@@ -24,6 +24,8 @@ export default class Trait {
     this.size = { min: size, max: size * 2.2, value: size };
 
     this.zIndex = 0;
+    this.cx = 0;
+    this.cy = 0;
   }
 
   setHighlighted(isHighlighted) {
@@ -49,10 +51,14 @@ export default class Trait {
     return this;
   }
 
+  setCenter(cx, cy) {
+    this.cx = cx;
+    this.cy = cy;
+    return this;
+  }
+
   draw() {
-    const { p, h, s, l, alpha, diameter, startAngle, stopAngle, size, strokeColor } = this;
-    const cx = p.width / 2;
-    const cy = p.height / 2;
+    const { p, cx, cy, h, s, l, alpha, diameter, startAngle, stopAngle, size, strokeColor } = this;
 
     // Arcs are drawn clockwise, so convert the angles to counterclockwise
     const a1 = 2 * Math.PI - stopAngle;
