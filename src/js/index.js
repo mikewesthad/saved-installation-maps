@@ -23,8 +23,13 @@ const cmDistance = maxCm - minCm;
 const getCmPercent = cm => (cm - minCm) / cmDistance;
 const scale = 1.1;
 
+function calculateCanvasSize() {
+  // Scale to fit target aspect ratio of 1920 x 1080
+  const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+  return [1920 * s, 1080 * s];
+}
+
 new p5(function(p) {
-  let mainCanvas;
   let font;
   let seedImage;
   let traits;
@@ -34,15 +39,19 @@ new p5(function(p) {
   let highlightedTrait;
   let lastHighlightedTrait;
 
+  p.windowResized = () => {
+    const [w, h] = calculateCanvasSize();
+    p.resizeCanvas(w, h);
+  };
+
   p.preload = () => {
     font = p.loadFont(fontPath);
     seedImage = p.loadImage(seedImagePath);
   };
 
   p.setup = function() {
-    // Scale to fit target aspect ratio of 1920 x 1080
-    const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
-    mainCanvas = p.createCanvas(1920 * s, 1080 * s);
+    const [w, h] = calculateCanvasSize();
+    p.createCanvas(w, h);
 
     p.colorMode(p.HSL, 360, 1, 1, 1);
     p.textFont(font);

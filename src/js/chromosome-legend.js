@@ -11,8 +11,8 @@ export default class ChromosomeLegend {
     this.trait = null;
     this.w = 30;
     this.h = 254;
-    this.x = 10;
-    this.y = 10;
+    this.x = 50;
+    this.y = 50;
   }
 
   setTrait(trait) {
@@ -24,6 +24,7 @@ export default class ChromosomeLegend {
 
     p.push();
     p.translate(x, y);
+    p.scale(1.25);
     p.noStroke();
     p.fill(palette.brown.hsl());
     p.drawingContext.fill(chromosomePath);
