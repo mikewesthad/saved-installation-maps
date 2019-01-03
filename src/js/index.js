@@ -6,8 +6,8 @@ import a1LinkageText from "../data/SoyBase-GmComposite2003_A1_All_QTL_0-9999.tsv
 import selectedTraitsText from "../data/selected-traits.txt";
 import seedImagePath from "../images/usb-scope-processed.png";
 import palette from "./palette";
-import { ChromosomeMiniMap } from "./chromosome-minimap";
 import Trait from "./trait";
+import ChromosomeLegend from "./chromosome-minimap";
 
 const selectedTraits = parseLines(selectedTraitsText);
 const traitColors = [palette.orange, palette.yellow, palette.blue];
@@ -30,7 +30,7 @@ new p5(function(p) {
   let traits;
   const startRadius = 250 * scale;
   const traitDurationMs = 4000;
-  const chromosomeMiniMap = new ChromosomeMiniMap(p);
+  const chromosomeLegend = new ChromosomeLegend(p);
   let highlightedTrait;
   let lastHighlightedTrait;
 
@@ -96,8 +96,8 @@ new p5(function(p) {
     traits.sort((a, b) => a.zIndex - b.zIndex);
     traits.forEach(t => t.draw());
 
-    chromosomeMiniMap.setTrait(traits.find(t => t.isHighlighted));
-    chromosomeMiniMap.draw();
+    chromosomeLegend.setTrait(traits.find(t => t.isHighlighted));
+    chromosomeLegend.draw();
 
     lastHighlightedTrait = highlightedTrait;
   };

@@ -5,7 +5,7 @@ const chromosomePath = new Path2D(
   "M27,46.5v-32a12.5,12.5,0,0,0-25,0v32c0,4.75,5.92,8.89,9.62,11C7.92,59.61,2,63.75,2,68.5v169a12.5,12.5,0,0,0,25,0V68.5c0-4.75-5.92-8.89-9.62-11C21.08,55.39,27,51.25,27,46.5Z"
 );
 
-export class ChromosomeMiniMap {
+export default class ChromosomeLegend {
   constructor(p) {
     this.p = p;
     this.trait = null;
