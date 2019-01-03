@@ -20,11 +20,11 @@ export default class ChromosomeLegend {
   }
 
   draw() {
-    const { p, trait, w, h, x, y, maskImage } = this;
+    const { p, trait, w, h, x, y } = this;
 
     p.push();
     p.translate(x, y);
-    p.scale(1.25);
+    p.scale(1.3);
     p.noStroke();
     p.fill(palette.brown.hsl());
     p.drawingContext.fill(chromosomePath);
@@ -46,11 +46,11 @@ export default class ChromosomeLegend {
       p.noStroke();
       p.fill(0);
       p.textSize(23);
-      p.text(name, w + 45, 40);
+      p.text(name, w + 45, 20, 300);
 
       p.stroke(0);
       p.strokeWeight(2);
-      p.line(w + 5, midPercent * h, w + 40, 53);
+      p.line(w + 5, midPercent * h, w + 40, 33);
       p.stroke(0);
       p.strokeWeight(2);
     }
