@@ -1,4 +1,5 @@
 import palette from "./palette";
+import { setFont } from "./canvas-utils";
 
 // Path from images/chromosome.svg
 const chromosomePath = new Path2D(
@@ -50,7 +51,8 @@ export default class ChromosomeLegend {
       p.textAlign(p.LEFT, p.TOP);
       p.noStroke();
       p.fill(0);
-      p.textSize(23);
+      const style = { fontFamily: "Inconsolata", fontSize: 21, fontWeight: "600" };
+      setFont(p.drawingContext, style);
       p.text(name, w + 45, 20);
 
       p.stroke(0);

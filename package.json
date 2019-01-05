@@ -15,7 +15,8 @@
   "dependencies": {
     "chroma-js": "^2.0.2",
     "gsap": "^2.0.2",
-    "p5": "^0.7.2"
+    "p5": "^0.7.2",
+    "webfontloader": "^1.6.28"
   },
   "devDependencies": {
     "file-loader": "^3.0.1",

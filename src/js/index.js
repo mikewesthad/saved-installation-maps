@@ -1,6 +1,5 @@
 import p5 from "p5";
 import "p5/lib/addons/p5.dom";
-import fontPath from "../fonts/Inconsolata-Bold.ttf";
 import { parseLines, parseSoybaseData, findMinMaxMap } from "./parse-data";
 import a1LinkageText from "../data/SoyBase-GmComposite2003_A1_All_QTL_0-9999.tsv";
 import selectedTraitsText from "../data/selected-traits.txt";
@@ -8,6 +7,16 @@ import seedImagePath from "../images/usb-scope-processed.png";
 import palette from "./palette";
 import Trait from "./trait";
 import ChromosomeLegend from "./chromosome-legend";
+
+import WebFont from "webfontloader";
+import { setFont } from "./canvas-utils";
+
+WebFont.load({
+  classes: false,
+  google: {
+    families: ["Inconsolata"]
+  }
+});
 
 const selectedTraits = parseLines(selectedTraitsText);
 const traitColors = [palette.orange, palette.yellow, palette.blue];
@@ -30,7 +39,6 @@ function calculateCanvasSize() {
 }
 
 new p5(function(p) {
-  let font;
   let seedImage;
   let traits;
   const startRadius = 250 * scale;
@@ -45,7 +53,6 @@ new p5(function(p) {
   };
 
   p.preload = () => {
-    font = p.loadFont(fontPath);
     seedImage = p.loadImage(seedImagePath);
   };
 
@@ -54,7 +61,9 @@ new p5(function(p) {
     p.createCanvas(w, h);
 
     p.colorMode(p.HSL, 360, 1, 1, 1);
-    p.textFont(font);
+    // p.drawingContext.font = "100px Inconsolata 700";
+    // p.textFont("Inconsolata");
+    // p.textStyle(p.BOLD);
 
     traits = data.map((traitData, i) => {
       const { objectName, start, stop } = traitData;
@@ -110,12 +119,32 @@ new p5(function(p) {
     });
 
     chromosomeLegend.setTrait(traits.find(t => t.isHighlighted));
-    chromosomeLegend.setPosition(p.width * 0.075, p.height * 0.03);
+    chromosomeLegend.setPosition(100, 50);
     chromosomeLegend.draw();
+
+    drawSoybeanLabel(100, p.height - 100);
 
     lastHighlightedTrait = highlightedTrait;
   };
-});
 
-// Only needed to force a page refresh with Parcel's hot module replacement
-if (module.hot) module.hot.dispose(() => window.location.reload());
+  function drawSoybeanLabel(x, y) {
+    const baseStyle = { fontFamily: "Inconsolata", fontSize: 21 * 1.4, fontWeight: "600" };
+    const italicStyle = Object.assign({}, baseStyle, { fontStyle: "italic" });
+    const line1x = x;
+    const line1y = y;
+    const line2x = line1x;
+    const line2y = line1y + baseStyle.fontSize * 1.1;
+
+    p.push();
+    p.textAlign(p.LEFT, p.BASELINE);
+    p.noStroke();
+    p.fill(0);
+    setFont(p.drawingContext, baseStyle);
+    p.text("Soybean", line1x, line1y);
+    setFont(p.drawingContext, italicStyle);
+    p.text("Glycine max ", line2x, line2y);
+    const offset = p.textWidth("Glycine max ");
+    p.text("(L.) Merr.", line2x + offset, line2y);
+    p.pop();
+  }
+});
