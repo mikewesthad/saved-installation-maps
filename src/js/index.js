@@ -14,7 +14,7 @@ import { setFont } from "./canvas-utils";
 WebFont.load({
   classes: false,
   google: {
-    families: ["Inconsolata"]
+    families: ["Roboto"]
   }
 });
 
@@ -61,9 +61,6 @@ new p5(function(p) {
     p.createCanvas(w, h);
 
     p.colorMode(p.HSL, 360, 1, 1, 1);
-    // p.drawingContext.font = "100px Inconsolata 700";
-    // p.textFont("Inconsolata");
-    // p.textStyle(p.BOLD);
 
     traits = data.map((traitData, i) => {
       const { objectName, start, stop } = traitData;

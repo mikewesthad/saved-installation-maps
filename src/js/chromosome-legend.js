@@ -1,7 +1,7 @@
 import palette from "./palette";
 import { setFont } from "./canvas-utils";
 
-const textStyle = { fontFamily: "Inconsolata", fontSize: 21, fontWeight: "600" };
+const textStyle = { fontFamily: "Roboto", fontSize: 18, fontWeight: "500" };
 const italicTextStyle = Object.assign({}, textStyle, { fontStyle: "italic" });
 
 // Path from images/chromosome.svg
