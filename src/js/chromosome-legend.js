@@ -1,7 +1,7 @@
 import palette from "./palette";
 import { setFont } from "./canvas-utils";
 
-const textStyle = { fontFamily: "Roboto", fontSize: 18, fontWeight: "500" };
+const textStyle = { fontFamily: "Roboto", fontSize: 18, fontWeight: 500 };
 const italicTextStyle = Object.assign({}, textStyle, { fontStyle: "italic" });
 
 // Path from images/chromosome.svg
@@ -58,7 +58,7 @@ export default class ChromosomeLegend {
       p.text(name, w + 45, 20);
 
       p.stroke(0);
-      p.strokeWeight(2);
+      p.strokeWeight(1.5);
       p.line(w + 5, midPercent * h, w + 40, 33);
       p.stroke(0);
       p.strokeWeight(2);
