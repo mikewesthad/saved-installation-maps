@@ -1,5 +1,6 @@
 import p5 from "p5";
 import "p5/lib/addons/p5.dom";
+import WebFont from "webfontloader";
 import { parseLines, parseSoybaseData, findMinMaxMap } from "./parse-data";
 import a1LinkageText from "../data/SoyBase-GmComposite2003_A1_All_QTL_0-9999.tsv";
 import selectedTraitsText from "../data/selected-traits.txt";
@@ -7,9 +8,6 @@ import seedImagePath from "../images/usb-scope-processed.png";
 import palette from "./palette";
 import Trait from "./trait";
 import ChromosomeLegend from "./chromosome-legend";
-
-import WebFont from "webfontloader";
-import { setFont } from "./canvas-utils";
 
 WebFont.load({
   classes: false,
