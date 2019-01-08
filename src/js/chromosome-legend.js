@@ -1,6 +1,9 @@
 import palette from "./palette";
 import { setFont } from "./canvas-utils";
 
+const textStyle = { fontFamily: "Inconsolata", fontSize: 21, fontWeight: "600" };
+const italicTextStyle = Object.assign({}, textStyle, { fontStyle: "italic" });
+
 // Path from images/chromosome.svg
 const chromosomePath = new Path2D(
   "M27,46.5v-32a12.5,12.5,0,0,0-25,0v32c0,4.75,5.92,8.89,9.62,11C7.92,59.61,2,63.75,2,68.5v169a12.5,12.5,0,0,0,25,0V68.5c0-4.75-5.92-8.89-9.62-11C21.08,55.39,27,51.25,27,46.5Z"
@@ -51,8 +54,7 @@ export default class ChromosomeLegend {
       p.textAlign(p.LEFT, p.TOP);
       p.noStroke();
       p.fill(0);
-      const style = { fontFamily: "Inconsolata", fontSize: 21, fontWeight: "600" };
-      setFont(p.drawingContext, style);
+      setFont(p.drawingContext, textStyle);
       p.text(name, w + 45, 20);
 
       p.stroke(0);
@@ -63,6 +65,19 @@ export default class ChromosomeLegend {
     }
 
     p.drawingContext.stroke(chromosomePath);
+
+    const line1x = 0;
+    const line1y = h + 25;
+    const line2x = line1x;
+    const line2y = line1y + textStyle.fontSize * 1.2;
+    p.textAlign(p.LEFT, p.BASELINE);
+    p.noStroke();
+    p.fill(0);
+    setFont(p.drawingContext, textStyle);
+    p.text("Soybean", line1x, line1y);
+    setFont(p.drawingContext, italicTextStyle);
+    p.text("Glycine max", line2x, line2y);
+
     p.pop();
   }
 }

@@ -102,7 +102,7 @@ new p5(function(p) {
       if (lastHighlightedTrait) lastHighlightedTrait.setHighlighted(false).setZIndex(1);
     }
 
-    const mapCenterX = 0.65 * p.width;
+    const mapCenterX = 0.66 * p.width;
     const mapCenterY = p.height / 2;
 
     p.background(255);
@@ -119,32 +119,9 @@ new p5(function(p) {
     });
 
     chromosomeLegend.setTrait(traits.find(t => t.isHighlighted));
-    chromosomeLegend.setPosition(100, 50);
+    chromosomeLegend.setPosition(100, 20);
     chromosomeLegend.draw();
-
-    drawSoybeanLabel(100, p.height - 100);
 
     lastHighlightedTrait = highlightedTrait;
   };
-
-  function drawSoybeanLabel(x, y) {
-    const baseStyle = { fontFamily: "Inconsolata", fontSize: 21 * 1.4, fontWeight: "600" };
-    const italicStyle = Object.assign({}, baseStyle, { fontStyle: "italic" });
-    const line1x = x;
-    const line1y = y;
-    const line2x = line1x;
-    const line2y = line1y + baseStyle.fontSize * 1.1;
-
-    p.push();
-    p.textAlign(p.LEFT, p.BASELINE);
-    p.noStroke();
-    p.fill(0);
-    setFont(p.drawingContext, baseStyle);
-    p.text("Soybean", line1x, line1y);
-    setFont(p.drawingContext, italicStyle);
-    p.text("Glycine max ", line2x, line2y);
-    const offset = p.textWidth("Glycine max ");
-    p.text("(L.) Merr.", line2x + offset, line2y);
-    p.pop();
-  }
 });
