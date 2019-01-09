@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --mode=development --watch --open",
-    "build": "webpack --mode=production"
+    "dev:web": "webpack-dev-server --mode=development --watch --open",
+    "electron": "electron ./electron/main.js",
+    "webpack:watch": "webpack --mode=development --watch",
+    "webpack:electron": "webpack --mode=development --watch --target=\"electron-renderer\"",
+    "webpack:build": "webpack --mode=production",
+    "dev:electron": "concurrently \"npm run webpack:electron\" \"npm run electron\""
   },
   "author": "",
   "license": "ISC",
@@ -13,8 +17,11 @@
     "printWidth": 100
   },
   "dependencies": {
+    "@tweenjs/tween.js": "^17.2.0",
     "chroma-js": "^2.0.2",
-    "gsap": "^2.0.2",
+    "concurrently": "^4.1.0",
+    "electron": "^4.0.1",
+    "electron-debug": "^2.0.0",
     "p5": "^0.7.2",
     "webfontloader": "^1.6.28"
   },

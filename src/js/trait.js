@@ -1,4 +1,5 @@
-import { TweenLite, TimelineMax } from "gsap";
+import { Tween, default as TWEEN } from "@tweenjs/tween.js";
+import time from "./time";
 
 export default class Trait {
   constructor(p, name, diameter, size, startAngle, stopAngle, color) {
@@ -33,16 +34,31 @@ export default class Trait {
 
     this.isHighlighted = isHighlighted;
 
-    if (this.timeline) this.timeline.kill();
+    if (this.sizeTween) this.sizeTween.stop();
+    if (this.alphaTween) this.alphaTween.stop();
+
+    // Need to shim now() since it is used to schedule tween starting time
+
     if (this.isHighlighted) {
-      this.timeline = new TimelineMax();
-      this.timeline.to(this.size, 0.25, { value: this.size.max });
-      this.timeline.to(this.alpha, 0.1, { value: this.alpha.max }, 0);
+      this.sizeTween = new Tween(this.size)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .to({ value: this.size.max }, 250)
+        .start(time.now());
+      this.alphaTween = new Tween(this.alpha)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .to({ value: this.alpha.max }, 100)
+        .start(time.now());
     } else {
-      this.timeline = new TimelineMax();
-      this.timeline.to(this.size, 0.25, { value: this.size.min });
-      this.timeline.to(this.alpha, 0.1, { value: this.alpha.min }, 0);
+      this.sizeTween = new Tween(this.size)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .to({ value: this.size.min }, 250)
+        .start(time.now());
+      this.alphaTween = new Tween(this.alpha)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .to({ value: this.alpha.min }, 100)
+        .start(time.now());
     }
+
     return this;
   }
 

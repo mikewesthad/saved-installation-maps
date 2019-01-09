@@ -28,5 +28,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./index.html"
     })
-  ]
+  ],
+  target: "electron-renderer",
+  devtool: "eval-source-map"
 };
