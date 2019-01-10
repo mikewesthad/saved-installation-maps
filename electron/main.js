@@ -2,16 +2,12 @@ const electron = require("electron");
 const { app, BrowserWindow } = electron;
 const path = require("path");
 const url = require("url");
-const fs = require("fs");
 const electronDebug = require("electron-debug");
 
-// Device scaling is a problem...
+// Device scaling is a problem when it comes to rendering, so force everything to 1x scaling
 electron.app.commandLine.appendSwitch("force-device-scale-factor", "1");
 
-electronDebug({
-  showDevTools: false,
-  devToolsMode: "undocked"
-});
+electronDebug({ showDevTools: false, devToolsMode: "undocked" });
 
 let mainWindow;
 
