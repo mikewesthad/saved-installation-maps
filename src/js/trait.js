@@ -29,6 +29,11 @@ export default class Trait {
     this.cy = 0;
   }
 
+  setName(name) {
+    this.name = name;
+    return this;
+  }
+
   setHighlighted(isHighlighted) {
     if (isHighlighted === this.isHighlighted) return;
 
