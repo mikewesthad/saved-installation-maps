@@ -6,7 +6,7 @@ import a1LinkageText from "../data/SoyBase-GmComposite2003_A1_All_QTL_0-9999.tsv
 import selectedTraitsText from "../data/selected-traits.txt";
 import seedImagePath from "../images/usb-scope-processed.png";
 import palette from "./palette";
-import Trait from "./trait";
+import Arc from "./arc";
 import ChromosomeLegend from "./chromosome-legend";
 import time from "./time";
 import TWEEN from "@tweenjs/tween.js";
@@ -79,11 +79,11 @@ new p5(function(p) {
         const d2 = p.map(v === 1 ? v - 0.3 : v + 0.3, 0, 1, startRadius, maxDiameter);
         const diameter = p.random(d1, d2);
         const color = traitColors[indexInSelected % traitColors.length];
-        trait = new Trait(p, objectName, diameter, 23, startAngle, stopAngle, color);
+        trait = new Arc(p, objectName, diameter, 23, startAngle, stopAngle, color);
         trait.setZIndex(1);
       } else {
         const diameter = p.map(i, 0, data.length, startRadius, maxDiameter);
-        trait = new Trait(p, objectName, diameter, 15, startAngle, stopAngle, palette.brown);
+        trait = new Arc(p, objectName, diameter, 15, startAngle, stopAngle, palette.brown);
         trait.setZIndex(0);
         trait.l += p.random(-0.05, 0.05);
       }
