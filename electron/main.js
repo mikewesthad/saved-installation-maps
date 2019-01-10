@@ -19,14 +19,10 @@ function createWindow() {
     useContentSize: true,
     frame: false,
     enableLargerThanScreen: true
-
-    // Not necessary
-    // fullscreen: true,
   });
 
-  // setSize will create a window larger than screen size
-  const display = electron.screen.getPrimaryDisplay();
-  mainWindow.setSize(1920 / display.scaleFactor, 1080 / display.scaleFactor);
+  // setSize does allow creating a window larger than screen sizes
+  mainWindow.setSize(1920, 1080);
 
   mainWindow.loadURL(
     url.format({
