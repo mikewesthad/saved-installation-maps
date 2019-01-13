@@ -4,7 +4,7 @@ import createSketch from "./sketch";
 
 const style = { width: "1920px", height: "1080px", display: "flex" };
 
-export default class SeedMap extends PureComponent {
+export default class GeneticMap extends PureComponent {
   createSketch = p => {
     const { showImage, isRecording } = this.props;
     createSketch(p, showImage, isRecording);

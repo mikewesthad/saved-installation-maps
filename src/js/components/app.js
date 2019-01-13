@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import { MemoryRouter as Router, Route, Switch, Link } from "react-router-dom";
-import SeedMap from "../genetic-map";
+import GeneticMap from "../genetic-map";
 
 const Nav = () => (
   <nav>
@@ -28,11 +28,11 @@ export default class App extends PureComponent {
         <Switch>
           <Route
             path="/genetic-play"
-            render={() => <SeedMap showImage={true} isRecording={false} />}
+            render={() => <GeneticMap showImage={true} isRecording={false} />}
           />
           <Route
             path="/genetic-record"
-            render={() => <SeedMap showImage={false} isRecording={true} />}
+            render={() => <GeneticMap showImage={false} isRecording={true} />}
           />
           <Route render={() => <Nav />} />
         </Switch>
