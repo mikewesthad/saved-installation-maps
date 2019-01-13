@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import SketchWrapper from "../components/sketch-wrapper";
 import createSketch from "./sketch";
 
-const style = { width: "1920px", height: "1080px" };
+const style = { width: "1920px", height: "1080px", display: "flex" };
 
 export default class SeedMap extends PureComponent {
   createSketch = p => {

@@ -21,8 +21,6 @@ export default class Recorder {
     const command = "ffmpeg";
     const args = proresArgs(fps, quality, output);
 
-    console.log(args);
-
     this.process = spawn(command, args.split(" "));
 
     // ffmpeg outputs non-errors to stderr to leave stdout free
