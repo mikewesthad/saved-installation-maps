@@ -1,7 +1,7 @@
 import { Tween, default as TWEEN } from "@tweenjs/tween.js";
-import time from "./time";
+import time from "./utils/time";
 
-export default class Trait {
+export default class Arc {
   constructor(p, name, diameter, size, startAngle, stopAngle, color) {
     this.p = p;
     this.name = name;

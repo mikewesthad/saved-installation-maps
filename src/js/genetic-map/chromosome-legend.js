@@ -1,5 +1,5 @@
-import palette from "./palette";
-import { setFont } from "./canvas-utils";
+import palette from "../palette";
+import { setFont } from "../utils/canvas-utils";
 
 const textStyle = { fontFamily: "Roboto", fontSize: 18, fontWeight: 600 };
 const italicTextStyle = Object.assign({}, textStyle, { fontStyle: "italic" });
