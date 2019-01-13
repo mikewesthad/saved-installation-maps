@@ -4,7 +4,7 @@ Maps of genetic and seed saving information about soybean, accompanying the inst
 
 ## Installation
 
-Make sure you have [node](https://nodejs.org/en/) installed. Download this repository (via `git clone` or downloading the [zipped project](https://github.com/mikewesthad/seed-installation/archive/master.zip)), and then open a terminal in the project folder and run:
+Make sure you have [node](https://nodejs.org/en/) installed. Download this repository (via `git clone` or downloading the [zipped project](https://github.com/mikewesthad/saved-installation-maps/archive/master.zip)), and then open a terminal in the project folder and run:
 
 ```
 npm install
