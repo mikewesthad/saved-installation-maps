@@ -1,0 +1,23 @@
+country_code,country_name,capital,lattitude,longitude,seeds,taxa,countries,annual production (2016 inmetric tonnes),,,
+ARG,Argentina,Buenos Aires,-36.30,-60.00,0.00,0.00,0.00,58799258.00,,,"�""Crops"".�FAOSTAT. Retrieved�19 November�2018.�Countries - Select All; Regions - World + (Total); Elements - Production Quantity; Items - Soybeans; Years - 2016"
+AUS,Australia,Canberra,-35.15,149.08,118741.00,18.00,2.00,62556.00,,,
+AUT,Austria,Vienna,48.12,16.22,3500.00,1.00,5.00,152599.00,,,
+BOL,Bolivia,La Paz,-16.20,-68.10,0.00,0.00,0.00,3204639.00,,,https://lab.lmnixon.org/4th/worldcapitals.html
+BRA,Brazil,Brasilia,-15.47,-47.55,0.00,0.00,0.00,96296714.00,,,
+BDI,Burundi,Bujumbura,-3.16,29.18,5400.00,1.00,1.00,2315.00,,,
+CAN,Canada,Ottawa,47.27,-75.42,217900.00,4.00,23.00,5827100.00,,,
+CHN,China,Beijing,39.55,116.20,0.00,0.00,0.00,11963244.00,,,"A positive number for latitude means north, and a negative value means south. For longitude, negative means west, and positive means east. "
+COL,Columbia,Bogota,4.34,-74.00,6800.00,3.00,5.00,83941.00,,,"N+, S-"
+ETH,Ethiopia,Addis Ababa,9.02,38.42,5500.00,4.00,2.00,81235.00,,,"E+, W-"
+DEU,Germany,Berlin,52.30,13.25,817650.00,146.00,29.00,41000.00,,,
+IND,India,New Delhi,28.37,77.13,0.00,0.00,0.00,14008000.00,,,
+KOR,Korea,Seoul,37.31,126.58,503750.00,2.00,1.00,423900.00,,,0 in the seed column means they don't store soy at Svalbard
+NGA,Nigeria,Abuja,9.05,7.32,380750.00,2.00,24.00,588201.00,,,
+NOR,Norway,Oslo,59.55,10.45,77940.00,2.00,2.00,363.00,*<1000,,
+PRY,Paraguay,Asuncion,-25.10,-57.30,0.00,0.00,0.00,9163030.00,,,
+RUS,Russia,Moscow,55.45,37.35,52000.00,1.00,10.00,3135177.00,,,
+TWN,Taiwan,Taipei,25.03,121.56,2907231.00,188.00,127.00,3084.00,,,
+THA,Thailand,Bangkok,13.35,100.35,500.00,1.00,1.00,39495.00,,,
+UKR,Ukraine,Kiev,50.30,30.28,0.00,0.00,0.00,4276990.00,,,
+USA,United States,"Washington, D.C.",39.91,-77.02,4343346.00,14.00,95.00,117208380.00,,,
+URY,Uruguay,Montevideo,-34.50,-56.11,0.00,0.00,0.00,2208000.00,,,

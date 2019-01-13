@@ -1,7 +1,7 @@
-import palette from "./palette";
-import { setFont } from "./canvas-utils";
+import palette from "../palette";
+import { setFont } from "../utils/canvas-utils";
 
-const textStyle = { fontFamily: "Roboto", fontSize: 18, fontWeight: 500 };
+const textStyle = { fontFamily: "Roboto", fontSize: 18, fontWeight: 600 };
 const italicTextStyle = Object.assign({}, textStyle, { fontStyle: "italic" });
 
 // Path from images/chromosome.svg
@@ -33,7 +33,7 @@ export default class ChromosomeLegend {
 
     p.push();
     p.translate(x, y);
-    p.scale(1.4);
+    p.scale(1.4 * 1.25);
     p.noStroke();
     p.fill(palette.brown.hsl());
     p.drawingContext.fill(chromosomePath);
@@ -50,20 +50,18 @@ export default class ChromosomeLegend {
       p.strokeWeight(2);
       p.rect(0, startPercent * h, w - 2, (stopPercent - startPercent) * h);
       p.pop();
-
       p.textAlign(p.LEFT, p.TOP);
       p.noStroke();
       p.fill(0);
       setFont(p.drawingContext, textStyle);
       p.text(name, w + 45, 20);
-
       p.stroke(0);
       p.strokeWeight(1.5);
       p.line(w + 5, midPercent * h, w + 40, 33);
-      p.stroke(0);
-      p.strokeWeight(2);
     }
 
+    p.stroke(0);
+    p.strokeWeight(2);
     p.drawingContext.stroke(chromosomePath);
 
     const line1x = 0;

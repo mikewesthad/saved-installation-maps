@@ -11,6 +11,11 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: "babel-loader"
+      },
+      {
         test: /\.(txt|csv|tsv)$/,
         use: "raw-loader"
       },
@@ -28,5 +33,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./index.html"
     })
-  ]
+  ],
+  target: "electron-renderer",
+  devtool: "eval-source-map"
 };
