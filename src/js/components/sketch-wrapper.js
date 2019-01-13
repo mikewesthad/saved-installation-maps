@@ -32,7 +32,11 @@ export default class SketchWrapper extends PureComponent {
   }
 
   render() {
-    const { sketch, ...otherProps } = this.props;
-    return <div ref={this.containerRef} {...otherProps} />;
+    const { sketch, children, ...otherProps } = this.props;
+    return (
+      <div ref={this.containerRef} {...otherProps}>
+        {children}
+      </div>
+    );
   }
 }

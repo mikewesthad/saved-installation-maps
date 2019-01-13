@@ -3,6 +3,7 @@ import SketchWrapper from "../components/sketch-wrapper";
 import createSketch from "./sketch";
 
 const style = { width: "1920px", height: "1080px", display: "flex" };
+const legendStyle = { position: "absolute" };
 
 export default class SaversMap extends PureComponent {
   createSketch = p => {
@@ -11,6 +12,10 @@ export default class SaversMap extends PureComponent {
   };
 
   render() {
-    return <SketchWrapper sketch={this.createSketch} style={style} />;
+    return (
+      <SketchWrapper sketch={this.createSketch} style={style}>
+        <div class="legend" style={legendStyle} />
+      </SketchWrapper>
+    );
   }
 }
